@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+
+  Sample SAM Template for sam-app
+
+Parameters:
+  Foo:
+    Type: String
+    Default: BAR
+    AllowedValues:
+      - BAR
+    Description: An example parameter.
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  MinkServer:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      Handler: dist/handler.handle
+      Runtime: nodejs8.10
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          FOO: !Ref Foo
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+  EstoresTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: client
+          AttributeType: S
+      KeySchema:
+        - AttributeName: client
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: Estores
+      Tags:
+        - Key: Application
+          Value: Job Board
+        - Key: Client
+          Value: Momentum Ink
+        - Key: Environment
+          Value: Production
+
+Outputs:
+  Api:
+    Description: "API Gateway endpoint URL for Prod stage for function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+
+  EstoresARN:
+    Description: "Estores table ARN"
+    Value: !GetAtt EstoresTable.Arn
+  Function:
+    Description: "Lambda Function ARN"
+    Value: !GetAtt HelloWorldFunction.Arn
+
+  FunctionIamRole:
+    Description: "Implicit IAM Role created for function"
+    Value: !GetAtt HelloWorldFunctionRole.Arn
