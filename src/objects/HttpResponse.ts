@@ -8,10 +8,10 @@ export default class HttpResponse {
         this.body = body;
 
         this.headers = {
-            "Content-Type": "text/plain",
-            "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key",
-            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE",
-            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'text/plain',
+            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key',
+            'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE',
+            'Access-Control-Allow-Origin': '*',
         };
 
         Object.keys(customHeaders).forEach((key: any) => {

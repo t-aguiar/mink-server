@@ -1,14 +1,12 @@
-import HttpResponse from "./objects/HttpResponse";
-import HelloWorldController from "./controllers/HelloWorldController";
-import JsonHttpResponse from "./objects/JsonHttpResponse";
+import EstoreController from './controllers/EstoreController';
+import HttpResponse from './objects/HttpResponse';
+import JsonHttpResponse from './objects/JsonHttpResponse';
 
 const routes: any = {
-    "/hello": HelloWorldController,
+    '/estore': EstoreController,
 };
 
 export const handle = async (event: any, context: any) => {
-    // console.log("request", event);
-
     let response: HttpResponse;
 
     try {
@@ -21,8 +19,6 @@ export const handle = async (event: any, context: any) => {
     } catch (err) {
         response = new JsonHttpResponse(500, err);
     }
-
-    // console.log("response", response.get());
 
     return response.get();
 };

@@ -1,6 +1,6 @@
-import IHttpRequestInterface from "../contracts/IHttpRequestInterface";
-import ILambdaHandlerInterface from "../contracts/ILambdaHandlerInterface";
-import HttpResponse from "../objects/HttpResponse";
+import IHttpRequestInterface from '../contracts/IHttpRequestInterface';
+import ILambdaHandlerInterface from '../contracts/ILambdaHandlerInterface';
+import HttpResponse from '../objects/HttpResponse';
 
 export default class AbstractHttpRequestController implements ILambdaHandlerInterface, IHttpRequestInterface {
     protected event: any;
@@ -21,19 +21,19 @@ export default class AbstractHttpRequestController implements ILambdaHandlerInte
         let response: HttpResponse;
 
         switch (this.event.httpMethod) {
-            case "GET":
+            case 'GET':
                 response = await this.get();
                 break;
-            case "POST":
+            case 'POST':
                 response = await this.post();
                 break;
-            case "PUT":
+            case 'PUT':
                 response = await this.put();
                 break;
-            case "DELETE":
+            case 'DELETE':
                 response = await this.delete();
                 break;
-            case "OPTIONS":
+            case 'OPTIONS':
                 response = await this.options();
                 break;
             default:
@@ -69,6 +69,6 @@ export default class AbstractHttpRequestController implements ILambdaHandlerInte
     }
 
     private success = async (): Promise<HttpResponse> => {
-        return new HttpResponse(200, "Success");
+        return new HttpResponse(200, 'Success');
     }
 }

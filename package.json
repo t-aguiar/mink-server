@@ -18,8 +18,7 @@
   },
   "homepage": "https://github.com/t-aguiar/mink-server#readme",
   "pre-commit": [
-    "lint",
-    "test"
+    "lint"
   ],
   "dependencies": {
     "aws-sdk": "^2.410.0",
